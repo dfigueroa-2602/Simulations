@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SemiconductorLibrary xmlns="http://www.plexim.com/xml/semiconductors/" version="1.1">
+    <Package class="MOSFET with Diode" vendor="Wolfspeed" partnumber="C3M0120090D">
+        <Variables/>
+        <SemiconductorData type="MOSFET with Diode">
+            <TurnOnLoss>
+                <ComputationMethod>Table only</ComputationMethod>
+                <CurrentAxis> -10 0 8 15</CurrentAxis>
+                <VoltageAxis> -100 0 400 600</VoltageAxis>
+                <TemperatureAxis> 25 150</TemperatureAxis>
+                <Energy scale="1e-06">
+                    <Temperature>
+                        <Voltage> 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0</Voltage>
+                        <Voltage> 0 0 65 140</Voltage>
+                        <Voltage> 0 0 120 250</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0</Voltage>
+                        <Voltage> 0 0 117 252</Voltage>
+                        <Voltage> 0 0 216 450</Voltage>
+                    </Temperature>
+                </Energy>
+            </TurnOnLoss>
+            <TurnOffLoss>
+                <ComputationMethod>Table only</ComputationMethod>
+                <CurrentAxis> -10 0 8 15</CurrentAxis>
+                <VoltageAxis> -100 0 400 600</VoltageAxis>
+                <TemperatureAxis> 25 150</TemperatureAxis>
+                <Energy scale="1e-06">
+                    <Temperature>
+                        <Voltage> 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0</Voltage>
+                        <Voltage> 0 0 8 30</Voltage>
+                        <Voltage> 0 0 10 40</Voltage>
+                    </Temperature>
+                    <Temperature>
+                        <Voltage> 0 0 0 0</Voltage>
+                        <Voltage> 0 0 0 0</Voltage>
+                        <Voltage> 0 0 9.6 36</Voltage>
+                        <Voltage> 0 0 12 48</Voltage>
+                    </Temperature>
+                </Energy>
+            </TurnOffLoss>
+            <ConductionLoss>
+                <ComputationMethod>Table only</ComputationMethod>
+                <CurrentAxis> -40 -30 -20 -10 -5 -1 -0.1 0 5 15 25 35 45</CurrentAxis>
+                <TemperatureAxis> 25 150</TemperatureAxis>
+                <VoltageDrop scale="1">
+                    <Temperature> -7.7 -7 -6.2 -5.2 -4.5 -3.5 -3 0 0.6 1.8 3.2 4.7 6.5</Temperature>
+                    <Temperature> -7.2 -6.5 -5.7 -4.8 -4.1 -3.2 -2.7 0 0.8 2.4 4.2 6.4 9.3</Temperature>
+                </VoltageDrop>
+            </ConductionLoss>
+        </SemiconductorData>
+        <ThermalModel>
+            <Branch type="Cauer">
+                <RCElement R="0.5" C="0.1"/>
+            </Branch>
+        </ThermalModel>
+        <Comment>
+            <Line></Line>
+        </Comment>
+    </Package>
+</SemiconductorLibrary>
