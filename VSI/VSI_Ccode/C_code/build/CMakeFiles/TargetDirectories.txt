@@ -1,0 +1,3 @@
+/home/dfigueroa/Documents/git/Simulations/VSI/VSI_Ccode/C_code/build/CMakeFiles/VSI_Plecs.dir
+/home/dfigueroa/Documents/git/Simulations/VSI/VSI_Ccode/C_code/build/CMakeFiles/edit_cache.dir
+/home/dfigueroa/Documents/git/Simulations/VSI/VSI_Ccode/C_code/build/CMakeFiles/rebuild_cache.dir

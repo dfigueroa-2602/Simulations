@@ -36,5 +36,42 @@ Qr = (5e3)*eye(2);
 Q = blkdiag(Qx,Qr);
 R = eye(nu);
 K = dlqr(Ad_aug,Bd_aug,Q,R);
+clc
+
+K_str = mat2str(K);
+K_str = extractBetween(K_str,'[',']');
+K_str = split(K_str,';');
+
+% K_c = '';
+% for row = 1:size(K,1)
+%     row_K_str = K_str{row};
+%     row_K_str = strrep(row_K_str,' ',', ');
+%     K_c = ['K[' num2str(size(K,1)) ']' '[' num2str(size(K,2)) '] = { {' row_K_str '}'];
+%     if isempty(K_c) == 0
+%         K_c = append(K_c,', {',row_K_str,'} };');
+%     end
+% end
+
+K_c = '';
+for row = 1:size(K,1)
+    row_K_str = K_str{row};
+    row_K_str = strrep(row_K_str,' ',', ');
+    K_c = ['#define K = { {' row_K_str '}'];
+    if isempty(K_c) == 0
+        K_c = append(K_c,', {',row_K_str,'} };');
+    end
+end
+
+CurrentFolder = pwd;
+C_Folder = extractBefore(CurrentFolder,'MATLAB');
+C_folder = append(C_Folder,'C_code/src/');
+C_file = fopen([C_folder 'Gain.h'], 'wt');
+fprintf(C_file,'#pragma once\n#ifndef Gain_H_\n#define Gain_H_\n\n');
+fprintf(C_file, [K_c '\n\n']);
+fprintf(C_file,'#endif /* Gain_H_ */'); fclose(C_file);
+
+
+
+%%
 
 sim('VSI_C_Simulation_Blocks');
