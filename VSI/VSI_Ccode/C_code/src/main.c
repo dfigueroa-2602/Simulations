@@ -6,7 +6,7 @@ DLLEXPORT void plecsSetSizes(struct SimulationSizes* aSizes)
 {
     aSizes->numInputs     = 9;  /* LQR states x */
     aSizes->numOutputs    = 2;  /* control outputs u */
-    aSizes->numStates     = 1;  /* discrete states inside DLL. Increase when you want to integrate something inside */
+    aSizes->numStates     = 3;  /* discrete states inside DLL. Increase when you want to integrate something inside */
     aSizes->numParameters = 1;  /* user parameters that will be used inside the DLL */
 }
 
@@ -15,8 +15,10 @@ DLLEXPORT void plecsStart(struct SimulationState* aState)
 {
     aState_global = aState;
 
-    /* Initialization of the integrator initial constant*/
+    /* Initialization of the integrators initial constants*/
     aState->states[0] = 0.0;
+    aState->states[1] = 0.0;
+    aState->states[2] = 0.0;
 
     /* Initialize outputs to 0 */
     for (int i = 0; i < 2; ++i)
@@ -35,9 +37,8 @@ DLLEXPORT void plecsOutput(struct SimulationState* aState)
     float vca = (float)aState->inputs[4];
     float vcb = (float)aState->inputs[5];
     float vcc = (float)aState->inputs[6];
-
-    float evcd = (float)aState->inputs[7];
-    float evcq = (float)aState->inputs[8];
+    float vcd_ref = (float)aState->inputs[7];
+    float vcq_ref = (float)aState->inputs[8];
 
     /* Sample time from parameters */
     double Ts = aState->parameters[0];
@@ -80,14 +81,24 @@ DLLEXPORT void plecsOutput(struct SimulationState* aState)
     alphabeta_dq(if_dq, if_ab, sin_theta, cos_theta);
     alphabeta_dq(vc_dq, vc_ab, sin_theta, cos_theta);
 
+    double evcd_k_1 = vcd_ref - vc_dq.d;
+    double evcq_k_1 = vcq_ref - vc_dq.q;
+
+    double evcd_k = aState->states[1] + evcd_k_1*Ts;
+    double evcq_k = aState->states[2] + evcq_k_1*Ts;
+
+    /* store updated integrator states */
+    aState->states[1] = evcd_k;
+    aState->states[2] = evcq_k;
+
     double x[6]; double u[2];
 
     x[0] = (double)if_dq.d;
     x[1] = (double)if_dq.q;
     x[2] = (double)vc_dq.d;
     x[3] = (double)vc_dq.q;
-    x[4] = (double)evcd;
-    x[5] = (double)evcq;
+    x[4] = evcd_k;
+    x[5] = evcq_k;
 
     /* Compute LQR control */
     lqrControl(x, u);
