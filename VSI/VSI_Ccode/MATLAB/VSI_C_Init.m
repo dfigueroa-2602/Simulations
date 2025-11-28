@@ -28,7 +28,7 @@ Hx = [0 0 1 0 ;
       0 0 0 1];
 
 Ad_aug = [ Ad       zeros(nx,nu);
-          -Hx*Ts*C  eye(nu)    ];
+          -Hx*C  eye(nu)    ];
 Bd_aug = [ Bd; zeros(nu)];
 
 Qx = (1e-2)*eye(4);
@@ -60,7 +60,7 @@ for row = 1:size(K,1)
 end
 
 % Write the C code K gain definition
-K_c = sprintf('static const double K_LQR[%d][%d] = {\n', size(K,1), size(K,2));
+K_c = sprintf('#define K_LQR {\n', size(K,1), size(K,2));
 
 % Append every row of K in the K_c
 for i = 1:size(K,1)

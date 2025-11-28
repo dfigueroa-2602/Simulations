@@ -52,8 +52,6 @@ DLLEXPORT void plecsOutput(struct SimulationState* aState)
     else if (theta < -MATH_PI)
         theta += 2.0 * MATH_PI;
 
-    aState->states[0] = theta;
-
     double sin_theta = sin(theta);
     double cos_theta = cos(theta);
 
@@ -84,10 +82,11 @@ DLLEXPORT void plecsOutput(struct SimulationState* aState)
     double evcd_k_1 = vcd_ref - vc_dq.d;
     double evcq_k_1 = vcq_ref - vc_dq.q;
 
-    double evcd_k = aState->states[1] + evcd_k_1*Ts;
-    double evcq_k = aState->states[2] + evcq_k_1*Ts;
+    double evcd_k = aState->states[1] + evcd_k_1 * Ts;
+    double evcq_k = aState->states[2] + evcq_k_1 * Ts;
 
-    /* store updated integrator states */
+    /* Store updated integrator states */
+    aState->states[0] = theta;
     aState->states[1] = evcd_k;
     aState->states[2] = evcq_k;
 
