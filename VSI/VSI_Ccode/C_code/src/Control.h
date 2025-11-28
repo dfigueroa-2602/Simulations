@@ -11,8 +11,8 @@ extern const float MATH_1_SQRT3;
 
 #define abc_alphabeta(alphabeta_struct, abc_struct)                                                 \
 {                                                                                                   \
-    alfabeta_struct.alpha = (2.0f*abc_struct.a - abc_struct.b - abc_struct.c) * MATH_1_3;           \
-    alfabeta_struct.beta = (abc_struct.b - abc_struct.c) * MATH_1_SQRT3;                            \
+    alphabeta_struct.alpha = (2.0f*abc_struct.a - abc_struct.b - abc_struct.c) * MATH_1_3;          \
+    alphabeta_struct.beta = (abc_struct.b - abc_struct.c) * MATH_1_SQRT3;                           \
 }                                                                                                   
 
 #define alphabeta_dq(dq_struct, alphabeta_struct, sin, cos)                                         \
@@ -22,5 +22,7 @@ extern const float MATH_1_SQRT3;
     dq_struct.d = temp_cos * alphabeta_struct.alpha + temp_sin * alphabeta_struct.beta;             \
     dq_struct.q = -temp_sin * alphabeta_struct.alpha + temp_cos * alphabeta_struct.beta;            \
 }
+
+void lqrControl(const double x[6], double u[2]);
 
 #endif /* Control_H_ */

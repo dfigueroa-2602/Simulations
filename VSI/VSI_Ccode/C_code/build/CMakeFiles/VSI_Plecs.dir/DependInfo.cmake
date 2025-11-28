@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dfigueroa/Documents/git/Simulations/VSI/VSI_Ccode/C_code/src/Control.c" "CMakeFiles/VSI_Plecs.dir/src/Control.c.o" "gcc" "CMakeFiles/VSI_Plecs.dir/src/Control.c.o.d"
+  "/home/dfigueroa/Documents/git/Simulations/VSI/VSI_Ccode/C_code/src/main.c" "CMakeFiles/VSI_Plecs.dir/src/main.c.o" "gcc" "CMakeFiles/VSI_Plecs.dir/src/main.c.o.d"
   "/home/dfigueroa/Documents/git/Simulations/VSI/VSI_Ccode/C_code/src/stdafx.c" "CMakeFiles/VSI_Plecs.dir/src/stdafx.c.o" "gcc" "CMakeFiles/VSI_Plecs.dir/src/stdafx.c.o.d"
   )
 

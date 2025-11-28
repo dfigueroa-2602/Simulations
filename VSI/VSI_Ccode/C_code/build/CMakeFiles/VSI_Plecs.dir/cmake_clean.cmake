@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/VSI_Plecs.dir/src/Control.c.o"
   "CMakeFiles/VSI_Plecs.dir/src/Control.c.o.d"
+  "CMakeFiles/VSI_Plecs.dir/src/main.c.o"
+  "CMakeFiles/VSI_Plecs.dir/src/main.c.o.d"
   "CMakeFiles/VSI_Plecs.dir/src/stdafx.c.o"
   "CMakeFiles/VSI_Plecs.dir/src/stdafx.c.o.d"
   "libVSI_Plecs.pdb"

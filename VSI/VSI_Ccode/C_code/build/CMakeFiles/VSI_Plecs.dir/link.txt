@@ -1,1 +1,1 @@
-/usr/bin/gcc -fPIC -g -shared -Wl,-soname,libVSI_Plecs.so -o libVSI_Plecs.so CMakeFiles/VSI_Plecs.dir/src/Control.c.o CMakeFiles/VSI_Plecs.dir/src/stdafx.c.o 
+/usr/bin/gcc -fPIC -g -shared -Wl,-soname,libVSI_Plecs.so -o libVSI_Plecs.so CMakeFiles/VSI_Plecs.dir/src/Control.c.o CMakeFiles/VSI_Plecs.dir/src/main.c.o CMakeFiles/VSI_Plecs.dir/src/stdafx.c.o 

@@ -153,6 +153,30 @@ src/Control.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VSI_Plecs.dir/build.make CMakeFiles/VSI_Plecs.dir/src/Control.c.s
 .PHONY : src/Control.c.s
 
+src/main.o: src/main.c.o
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VSI_Plecs.dir/build.make CMakeFiles/VSI_Plecs.dir/src/main.c.o
+.PHONY : src/main.c.o
+
+src/main.i: src/main.c.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VSI_Plecs.dir/build.make CMakeFiles/VSI_Plecs.dir/src/main.c.i
+.PHONY : src/main.c.i
+
+src/main.s: src/main.c.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VSI_Plecs.dir/build.make CMakeFiles/VSI_Plecs.dir/src/main.c.s
+.PHONY : src/main.c.s
+
 src/stdafx.o: src/stdafx.c.o
 .PHONY : src/stdafx.o
 
@@ -189,6 +213,9 @@ help:
 	@echo "... src/Control.o"
 	@echo "... src/Control.i"
 	@echo "... src/Control.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... src/stdafx.o"
 	@echo "... src/stdafx.i"
 	@echo "... src/stdafx.s"

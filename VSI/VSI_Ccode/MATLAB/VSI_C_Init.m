@@ -42,25 +42,37 @@ K_str = mat2str(K);
 K_str = extractBetween(K_str,'[',']');
 K_str = split(K_str,';');
 
-% K_c = '';
+K_c = '';
 % for row = 1:size(K,1)
 %     row_K_str = K_str{row};
 %     row_K_str = strrep(row_K_str,' ',', ');
-%     K_c = ['K[' num2str(size(K,1)) ']' '[' num2str(size(K,2)) '] = { {' row_K_str '}'];
+%     K_c = ['#define K_LQR = { {' row_K_str '}'];
 %     if isempty(K_c) == 0
 %         K_c = append(K_c,', {',row_K_str,'} };');
 %     end
 % end
+rows = cell(size(K,1),1);
 
-K_c = '';
 for row = 1:size(K,1)
     row_K_str = K_str{row};
-    row_K_str = strrep(row_K_str,' ',', ');
-    K_c = ['#define K = { {' row_K_str '}'];
-    if isempty(K_c) == 0
-        K_c = append(K_c,', {',row_K_str,'} };');
+    row_K_str = strrep(row_K_str, ' ', ', ');  % proper commas
+    rows{row} = ['{ ' row_K_str ' }'];         % store row
+end
+
+% Write the C code K gain definition
+K_c = sprintf('static const double K_LQR[%d][%d] = {\n', size(K,1), size(K,2));
+
+% Append every row of K in the K_c
+for i = 1:size(K,1)
+    if i < size(K,1)
+        K_c = [K_c '    ' rows{i} ',\n'];
+    else
+        K_c = [K_c '    ' rows{i} '\n'];
     end
 end
+
+% Close the C code gain with its respective curly-bracket
+K_c = [K_c '};'];
 
 CurrentFolder = pwd;
 C_Folder = extractBefore(CurrentFolder,'MATLAB');
@@ -69,9 +81,3 @@ C_file = fopen([C_folder 'Gain.h'], 'wt');
 fprintf(C_file,'#pragma once\n#ifndef Gain_H_\n#define Gain_H_\n\n');
 fprintf(C_file, [K_c '\n\n']);
 fprintf(C_file,'#endif /* Gain_H_ */'); fclose(C_file);
-
-
-
-%%
-
-sim('VSI_C_Simulation_Blocks');
