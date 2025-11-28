@@ -28,11 +28,11 @@ Hx = [0 0 1 0 ;
       0 0 0 1];
 
 Ad_aug = [ Ad       zeros(nx,nu);
-          -Hx*C  eye(nu)    ];
+          -Hx*Ts*C  eye(nu)    ];
 Bd_aug = [ Bd; zeros(nu)];
 
 Qx = (1e-2)*eye(4);
-Qr = (5e3)*eye(2);
+Qr = (1e3)*eye(2);
 Q = blkdiag(Qx,Qr);
 R = eye(nu);
 K = dlqr(Ad_aug,Bd_aug,Q,R);
@@ -42,7 +42,6 @@ K_str = mat2str(K);
 K_str = extractBetween(K_str,'[',']');
 K_str = split(K_str,';');
 
-K_c = '';
 % for row = 1:size(K,1)
 %     row_K_str = K_str{row};
 %     row_K_str = strrep(row_K_str,' ',', ');
@@ -60,14 +59,15 @@ for row = 1:size(K,1)
 end
 
 % Write the C code K gain definition
-K_c = sprintf('#define K_LQR {\n', size(K,1), size(K,2));
+aux_string = ['#define K_LQR_Values {' '                                                                                                     \\\\' '\n'];
+K_c = sprintf(aux_string, size(K,1), size(K,2));
 
 % Append every row of K in the K_c
 for i = 1:size(K,1)
     if i < size(K,1)
-        K_c = [K_c '    ' rows{i} ',\n'];
+        K_c = [K_c '    ' rows{i} ', ' '\\' '\n'];
     else
-        K_c = [K_c '    ' rows{i} '\n'];
+        K_c = [K_c '    ' rows{i} ' \\' '\n'];
     end
 end
 
