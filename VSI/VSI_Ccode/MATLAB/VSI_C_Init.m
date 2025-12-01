@@ -27,16 +27,20 @@ ss_VSI = ss(A,B,C,D); [Ad,Bd,~,~] = ssdata(c2d(ss_VSI,Ts));
 Hx = [0 0 1 0 ;
       0 0 0 1];
 
-Ad_aug = [ Ad       zeros(nx,nu);
-          -Hx*Ts*C  eye(nu)    ];
-Bd_aug = [ Bd; zeros(nu)];
+Ad_delay = [Ad Bd; zeros(nu,nx) zeros(nu)]; Bd_delay = [zeros(nx,nu); eye(nu)];
 
-Qx = (1e-2)*eye(4);
-Qr = (1e3)*eye(2);
-Q = blkdiag(Qx,Qr);
+Ad_aug = [ Ad_delay             zeros(nx+nu,nu);
+          [-Hx*Ts*C zeros(nu)]     eye(nu)    ];
+Bd_aug = [ Bd_delay; zeros(nu)];
+
+Qx = blkdiag((1e2)*blkdiag(1,1),(0.5)*blkdiag(1,1));
+Qr = eye(2);
+Q = blkdiag(Qx,Qr,(1e4)*eye(nu));
 R = eye(nu);
 K = dlqr(Ad_aug,Bd_aug,Q,R);
-clc
+
+sim('VSI_C_Simulation_Blocks.slx');
+
 
 K_str = mat2str(K);
 K_str = extractBetween(K_str,'[',']');

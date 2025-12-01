@@ -5,5 +5,8 @@
 *.log
 *.slxc
 *.asv
+*.internal
+*.make
 *.slx.autosave
 slprj
+CMakeFiles

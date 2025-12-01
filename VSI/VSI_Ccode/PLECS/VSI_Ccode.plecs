@@ -3,7 +3,7 @@ Plecs {
   Version       "4.9"
   CircuitModel  "ContStateSpace"
   StartTime     "0.0"
-  TimeSpan      "0.2"
+  TimeSpan      "0.3"
   Timeout       ""
   Solver        "auto"
   MaxStep       "1e-3"
@@ -56,16 +56,16 @@ Plecs {
   ScriptsDialogGeometry ""
   ScriptsDialogSplitterPos "0"
   Schematic {
-    Location      [665, 484; 1605, 1211]
+    Location      [1107, 369; 2093, 1180]
     ZoomFactor    1.96257
-    SliderPosition [0, -1]
+    SliderPosition [0, 15]
     ShowBrowser   off
     BrowserWidth  100
     Component {
       Type          Dll
       Name          "Controller"
       Show          on
-      Position      [180, 215]
+      Position      [150, 215]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -96,13 +96,13 @@ Plecs {
       Type          SignalMux
       Name          "Mux"
       Show          off
-      Position      [120, 215]
+      Position      [80, 215]
       Direction     right
       Flipped       off
       LabelPosition south
       Parameter {
         Variable      "Width"
-        Value         "[1 3 3 2]"
+        Value         "[1 8 2]"
         Show          off
       }
     }
@@ -627,7 +627,7 @@ Plecs {
       Type          Goto
       Name          "Goto5"
       Show          off
-      Position      [400, 285]
+      Position      [445, 285]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -651,7 +651,7 @@ Plecs {
       Type          Goto
       Name          "Goto6"
       Show          off
-      Position      [400, 255]
+      Position      [445, 255]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -675,7 +675,7 @@ Plecs {
       Type          From
       Name          "From7"
       Show          off
-      Position      [25, 210]
+      Position      [310, 350]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -699,7 +699,7 @@ Plecs {
       Type          From
       Name          "From8"
       Show          off
-      Position      [25, 220]
+      Position      [310, 360]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -806,7 +806,7 @@ Plecs {
       Type          Goto
       Name          "Goto8"
       Show          off
-      Position      [400, 315]
+      Position      [445, 315]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -830,7 +830,7 @@ Plecs {
       Type          From
       Name          "From10"
       Show          off
-      Position      [100, 200]
+      Position      [50, 205]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -922,7 +922,7 @@ Plecs {
       Type          From
       Name          "From11"
       Show          off
-      Position      [25, 230]
+      Position      [50, 225]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -946,15 +946,15 @@ Plecs {
       Type          Scope
       Name          "Scope"
       Show          off
-      Position      [205, 335]
+      Position      [215, 335]
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [1800, 476; 2150, 998]
+      Location      [2128, 413; 2478, 967]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAADEA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
 "///wAAAGMA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABjAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABEAP///wAAAV4AAAHrAAAA"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABEAP///wAAAV4AAAILAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
@@ -1065,7 +1065,7 @@ Plecs {
       Type          Delay
       Name          "Delay"
       Show          off
-      Position      [245, 215]
+      Position      [215, 215]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -1079,6 +1079,144 @@ Plecs {
         Value         "0"
         Show          off
       }
+      Parameter {
+        Variable      "Ts"
+        Value         "Ts"
+        Show          off
+      }
+    }
+    Component {
+      Type          SignalMux
+      Name          "Mux6"
+      Show          off
+      Position      [330, 355]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Width"
+        Value         "[3 3]"
+        Show          off
+      }
+    }
+    Component {
+      Type          From
+      Name          "From12"
+      Show          off
+      Position      [50, 215]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "x"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "NoMatchingCounterpartAction"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Goto
+      Name          "Goto10"
+      Show          off
+      Position      [445, 370]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "x"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "NoMatchingCounterpartAction"
+        Value         "2"
+        Show          off
+      }
+    }
+    Component {
+      Type          SignalMux
+      Name          "Mux7"
+      Show          off
+      Position      [410, 370]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Width"
+        Value         "[6 2]"
+        Show          off
+      }
+    }
+    Component {
+      Type          From
+      Name          "From13"
+      Show          off
+      Position      [360, 385]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "u_k"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "NoMatchingCounterpartAction"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Goto
+      Name          "Goto11"
+      Show          off
+      Position      [285, 200]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "u_k"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "NoMatchingCounterpartAction"
+        Value         "2"
+        Show          off
+      }
+    }
+    Component {
+      Type          ZeroOrderHold
+      Name          "Zero-Order\nHold"
+      Show          off
+      Position      [370, 355]
+      Direction     right
+      Flipped       off
+      LabelPosition south
       Parameter {
         Variable      "Ts"
         Value         "Ts"
@@ -1395,6 +1533,64 @@ Plecs {
     }
     Connection {
       Type          Signal
+      SrcComponent  "From7"
+      SrcTerminal   1
+      DstComponent  "Mux6"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From8"
+      SrcTerminal   1
+      DstComponent  "Mux6"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From11"
+      SrcTerminal   1
+      DstComponent  "Mux"
+      DstTerminal   4
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From12"
+      SrcTerminal   1
+      DstComponent  "Mux"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Mux7"
+      SrcTerminal   1
+      DstComponent  "Goto10"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From13"
+      SrcTerminal   1
+      Points        [395, 385]
+      DstComponent  "Mux7"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Mux6"
+      SrcTerminal   1
+      DstComponent  "Zero-Order\nHold"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Zero-Order\nHold"
+      SrcTerminal   2
+      Points        [395, 355]
+      DstComponent  "Mux7"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
       SrcComponent  "Controller"
       SrcTerminal   2
       DstComponent  "Delay"
@@ -1404,29 +1600,16 @@ Plecs {
       Type          Signal
       SrcComponent  "Delay"
       SrcTerminal   2
-      DstComponent  "RRF->3ph"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "From11"
-      SrcTerminal   1
-      DstComponent  "Mux"
-      DstTerminal   5
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "From7"
-      SrcTerminal   1
-      DstComponent  "Mux"
-      DstTerminal   3
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "From8"
-      SrcTerminal   1
-      DstComponent  "Mux"
-      DstTerminal   4
+      Points        [250, 215]
+      Branch {
+        DstComponent  "RRF->3ph"
+        DstTerminal   1
+      }
+      Branch {
+        Points        [250, 200]
+        DstComponent  "Goto11"
+        DstTerminal   1
+      }
     }
   }
 }

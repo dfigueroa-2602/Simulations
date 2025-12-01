@@ -42,7 +42,8 @@ struct Measurements
 	struct abc_struct V_capacitor;
 };
 
-extern float K_LQR[2][6];
+extern float K_LQR[2][8];
+
 extern struct Measurements Meas;
 extern struct Converter_struct Conv;
 extern struct SimulationState *aState_global;

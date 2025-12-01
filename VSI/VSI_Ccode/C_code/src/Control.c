@@ -20,14 +20,14 @@ const float MATH_SQRT3 = ConstMATH_SQRT3;
 const float MATH_2_3 = 2.0 / 3.0;
 
 /* Definition of the LQR controller void lqrControl(const double x[n. states], double u[n. inputs]) */
-void lqrControl(const double x[6], double u[2])
+void lqrControl(const double x[8], double u[2])
 {
     /* u = -K * x */
     u[0] = 0.0;
     u[1] = 0.0;
     
     /* For each state, assign each input as the multiplication of the column of that state times the state*/
-    for (int j = 0; j < 6; ++j) {
+    for (int j = 0; j < 8; ++j) {
         u[0] -= K_LQR[0][j] * x[j];
         u[1] -= K_LQR[1][j] * x[j];
     }

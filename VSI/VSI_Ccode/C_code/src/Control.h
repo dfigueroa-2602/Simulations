@@ -23,6 +23,21 @@ extern const float MATH_1_SQRT3;
     dq_struct.q = -temp_sin * alphabeta_struct.alpha + temp_cos * alphabeta_struct.beta;            \
 }
 
-void lqrControl(const double x[6], double u[2]);
+void lqrControl(const double x[8], double u[2]);
+
+struct PLL_struct{
+    float theta_k_1;
+    float theta_k;
+};
+
+struct Control_struct{
+    float xd_k_1;
+    float xq_k_1;
+    float xd_k;
+    float xq_k;
+};
+
+extern struct Control_struct var_Control_struct;
+extern struct PLL_struct var_PLL_struct;
 
 #endif /* Control_H_ */
