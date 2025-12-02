@@ -110,9 +110,7 @@ DLLEXPORT void plecsOutput(struct SimulationState* aState)
     aState->outputs[1] = u[1];
 
     /* Store updated integrator states */
-    var_PLL_struct.theta_k = var_PLL_struct.theta_k_1;
-    var_Control_struct.xd_k = var_Control_struct.xd_k_1;
-    var_Control_struct.xq_k = var_Control_struct.xq_k_1;
+    variablesUpdate();
 }
 
 /* Called once at end of simulation */

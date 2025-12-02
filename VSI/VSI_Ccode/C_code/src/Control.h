@@ -24,6 +24,7 @@ extern const float MATH_1_SQRT3;
 }
 
 void lqrControl(const double x[8], double u[2]);
+void variablesUpdate();
 
 struct PLL_struct{
     float theta_k_1;

@@ -32,3 +32,9 @@ void lqrControl(const double x[8], double u[2])
         u[1] -= K_LQR[1][j] * x[j];
     }
 }
+
+void variablesUpdate(){
+    var_PLL_struct.theta_k = var_PLL_struct.theta_k_1;
+    var_Control_struct.xd_k = var_Control_struct.xd_k_1;
+    var_Control_struct.xq_k = var_Control_struct.xq_k_1;
+}
