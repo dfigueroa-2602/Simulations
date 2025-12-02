@@ -8,5 +8,7 @@
 *.internal
 *.make
 *.slx.autosave
-slprj
 
+slprj/
+CMakeFiles/
+.cmake/
