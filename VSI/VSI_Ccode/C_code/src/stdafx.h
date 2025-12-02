@@ -8,6 +8,8 @@
 
 #include "Gain.h"
 #include "Control.h"
+#include "Converter.h"
+#include "Coordinates.h"
 
 typedef uint16_t Uint16;
 typedef uint32_t Uint32;
@@ -16,34 +18,14 @@ typedef int16_t int16;
 typedef int32_t int32;
 typedef int64_t int64;
 
-struct abc_struct {
-	float a;
-	float b;
-	float c;
-};
-
-struct alphabeta_struct {
-	float alpha;
-	float beta;
-};
-
-struct dq_struct {
-	float d;
-	float q;
-};
-
-struct Converter_struct {
-	float _placeholder;
-};
-
 struct Measurements
 {
-	struct abc_struct I_filter;
-	struct abc_struct V_capacitor;
+	struct abc_struct is; /* In reality, this is if*/
+	struct abc_struct vc;
+	float Vdc;
 };
 
 extern float K_LQR[2][8];
 
 extern struct Measurements Meas;
-extern struct Converter_struct Conv;
 extern struct SimulationState *aState_global;
