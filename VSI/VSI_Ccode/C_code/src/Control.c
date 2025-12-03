@@ -35,6 +35,7 @@ void lqrControl(const double x[8], double u[2])
     }
 }
 
+/* At the end of the Output loop, save the actual value as the last value*/
 void variablesUpdate(){
     var_PLL_struct.theta_k = var_PLL_struct.theta_k_1;
     var_Control_struct.States.xd_k = var_Control_struct.States.xd_k_1;

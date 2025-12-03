@@ -177,30 +177,6 @@ src/Converter.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VSI_Plecs.dir/build.make CMakeFiles/VSI_Plecs.dir/src/Converter.c.s
 .PHONY : src/Converter.c.s
 
-src/PLL.o: src/PLL.c.o
-.PHONY : src/PLL.o
-
-# target to build an object file
-src/PLL.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VSI_Plecs.dir/build.make CMakeFiles/VSI_Plecs.dir/src/PLL.c.o
-.PHONY : src/PLL.c.o
-
-src/PLL.i: src/PLL.c.i
-.PHONY : src/PLL.i
-
-# target to preprocess a source file
-src/PLL.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VSI_Plecs.dir/build.make CMakeFiles/VSI_Plecs.dir/src/PLL.c.i
-.PHONY : src/PLL.c.i
-
-src/PLL.s: src/PLL.c.s
-.PHONY : src/PLL.s
-
-# target to generate assembly for a file
-src/PLL.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VSI_Plecs.dir/build.make CMakeFiles/VSI_Plecs.dir/src/PLL.c.s
-.PHONY : src/PLL.c.s
-
 src/main.o: src/main.c.o
 .PHONY : src/main.o
 
@@ -264,9 +240,6 @@ help:
 	@echo "... src/Converter.o"
 	@echo "... src/Converter.i"
 	@echo "... src/Converter.s"
-	@echo "... src/PLL.o"
-	@echo "... src/PLL.i"
-	@echo "... src/PLL.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

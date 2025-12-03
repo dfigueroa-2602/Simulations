@@ -7,12 +7,10 @@
 
 struct Converter_struct
 {
-    float Ts;
     struct abc_struct duty;
 };
 
 extern struct Converter_struct conv;
-
-void Converter_Control(float enable);
+void Converter_2L_minmax(void);
 
 #endif /* Converter_H_ */

@@ -1,5 +1,6 @@
 #pragma once
 
+/* Structures to define abc, alphabeta and dq components */
 struct abc_struct {
 	float a;
 	float b;

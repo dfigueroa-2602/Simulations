@@ -2,7 +2,8 @@
 #include "Control.h"
 #include "Converter.h"
 
-void Converter_Control(float enable)
+/* Function to create the minmax injection for the 2L inverter */
+void Converter_2L_minmax(void)
 {
     float a = var_Control_struct.Output.u_abc.a;
     float b = var_Control_struct.Output.u_abc.b;

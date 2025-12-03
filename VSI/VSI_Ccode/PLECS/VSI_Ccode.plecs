@@ -3,7 +3,7 @@ Plecs {
   Version       "4.9"
   CircuitModel  "ContStateSpace"
   StartTime     "0.0"
-  TimeSpan      "0.4"
+  TimeSpan      "0.6"
   Timeout       ""
   Solver        "auto"
   MaxStep       "1e-3"
@@ -56,7 +56,7 @@ Plecs {
   ScriptsDialogGeometry ""
   ScriptsDialogSplitterPos "0"
   Schematic {
-    Location      [938, 468; 1924, 1295]
+    Location      [938, 468; 2060, 1295]
     ZoomFactor    1.96257
     SliderPosition [0, 0]
     ShowBrowser   off
@@ -836,11 +836,11 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [2128, 413; 2478, 768]
+      Location      [2128, 413; 2478, 776]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAADEA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
 "///wAAAGMA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABjAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABEAP///wAAAV4AAAFEAAAA"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABEAP///wAAAV4AAAFMAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
@@ -1132,12 +1132,12 @@ Plecs {
     }
     Component {
       Type          Subsystem
-      Name          "Subsystem"
-      Show          off
+      Name          "Inverter"
+      Show          on
       Position      [120, 90]
       Direction     up
       Flipped       off
-      LabelPosition south
+      LabelPosition north
       Frame         [-40, -60; 40, 60]
       SampleTime    "-1"
       CodeGenDiscretizationMethod "2"
@@ -2009,6 +2009,87 @@ Plecs {
         Show          off
       }
     }
+    Component {
+      Type          Resistor
+      Name          "R3"
+      Show          off
+      Position      [500, 130]
+      Direction     up
+      Flipped       off
+      LabelPosition east
+      Parameter {
+        Variable      "R"
+        Value         "RL"
+        Show          off
+      }
+    }
+    Component {
+      Type          WireMux
+      Name          "Mux7"
+      Show          off
+      Position      [500, 165]
+      Direction     up
+      Flipped       off
+      LabelPosition east
+      Parameter {
+        Variable      "Width"
+        Value         "3"
+        Show          off
+      }
+    }
+    Component {
+      Type          Switch
+      Name          "S1"
+      Show          off
+      Position      [470, 90]
+      Direction     left
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "s_init"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "SwitchModel"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "f_grid"
+        Value         "0"
+        Show          off
+      }
+    }
+    Component {
+      Type          Step
+      Name          "Step1"
+      Show          off
+      Position      [415, 40]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Time"
+        Value         "0.4"
+        Show          off
+      }
+      Parameter {
+        Variable      "Before"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "After"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "DataType"
+        Value         "10"
+        Show          off
+      }
+    }
     Connection {
       Type          Wire
       SrcComponent  "L1"
@@ -2160,14 +2241,6 @@ Plecs {
       DstTerminal   1
     }
     Connection {
-      Type          Wire
-      SrcComponent  "R2"
-      SrcTerminal   1
-      Points        [440, 90]
-      DstComponent  "Am2"
-      DstTerminal   2
-    }
-    Connection {
       Type          Signal
       SrcComponent  "Am2"
       SrcTerminal   3
@@ -2298,7 +2371,7 @@ Plecs {
     }
     Connection {
       Type          Wire
-      SrcComponent  "Subsystem"
+      SrcComponent  "Inverter"
       SrcTerminal   2
       Points        [40, 60]
       DstComponent  "V_dc"
@@ -2309,12 +2382,12 @@ Plecs {
       SrcComponent  "V_dc"
       SrcTerminal   2
       Points        [40, 120]
-      DstComponent  "Subsystem"
+      DstComponent  "Inverter"
       DstTerminal   3
     }
     Connection {
       Type          Wire
-      SrcComponent  "Subsystem"
+      SrcComponent  "Inverter"
       SrcTerminal   4
       DstComponent  "Am1"
       DstTerminal   1
@@ -2324,12 +2397,12 @@ Plecs {
       SrcComponent  "From1"
       SrcTerminal   1
       Points        [110, 170]
-      DstComponent  "Subsystem"
+      DstComponent  "Inverter"
       DstTerminal   1
     }
     Connection {
       Type          Signal
-      SrcComponent  "Subsystem"
+      SrcComponent  "Inverter"
       SrcTerminal   5
       Points        [130, 170]
       DstComponent  "Goto12"
@@ -2390,6 +2463,57 @@ Plecs {
       SrcTerminal   2
       DstComponent  "Goto2"
       DstTerminal   1
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "Mux7"
+      SrcTerminal   2
+      Points        [500, 170]
+      Branch {
+        DstComponent  "Mux7"
+        DstTerminal   3
+      }
+      Branch {
+        DstComponent  "Mux7"
+        DstTerminal   4
+      }
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "Mux7"
+      SrcTerminal   1
+      DstComponent  "R3"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "R3"
+      SrcTerminal   1
+      Points        [500, 90]
+      DstComponent  "S1"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Wire
+      SrcComponent  "R2"
+      SrcTerminal   1
+      Points        [440, 90]
+      Branch {
+        DstComponent  "Am2"
+        DstTerminal   2
+      }
+      Branch {
+        DstComponent  "S1"
+        DstTerminal   1
+      }
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Step1"
+      SrcTerminal   1
+      Points        [470, 40]
+      DstComponent  "S1"
+      DstTerminal   3
     }
   }
 }
