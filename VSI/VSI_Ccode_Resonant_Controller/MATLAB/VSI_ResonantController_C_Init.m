@@ -50,7 +50,7 @@ model = 'VSI_ResonantController_C_Simulation_Blocks';
 
 search = 1;
 
-beta_c = 2e-7; n_part = 200; iter = 100;
+beta_c = 1e-7; n_part = 100; iter = 100;
 c1 = 2.05; c2 = 2.05;
 Qmax = 4; Rmax = 2; xi_Max = 0.2; xivel_max = 0.01; Qmax_vel = 1; Rmax_vel = 0.1; rang_coef = 0.6;
 
@@ -114,8 +114,7 @@ if search == 1
     test = sim(model);
     save_system(model,[],'OverwriteIfChangedOnDisk',true);
 end
-%%
-clc
+
 Kgain2Ccode({[Kx Ku Kr] Ard, Brd}, ...
             {'K_LQR_Values','Ard_Values','Brd_Values'}, ...
             'Matrices')
