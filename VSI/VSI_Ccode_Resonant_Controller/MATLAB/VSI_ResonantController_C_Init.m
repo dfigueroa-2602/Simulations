@@ -46,7 +46,7 @@ Hx = C_delay([3 4],:);
 Ad_aug = [Ad_delay zeros((nx+nu),nxr); -Brd*Hx Ard];
 Bd_aug = [Bd_delay; zeros(nxr,nu)];
 
-model = 'VSI_ResonantController_C_Simulation_Blocks';
+Tsim = 0.3; A_ref = 60; T_settling = 40e-3;
 
 search = 1;
 
@@ -65,9 +65,9 @@ xmax_val = 10; xmin = repmat(-xmax_val,dim,1); xmax = repmat(xmax_val,dim,1);
 rng(1,'twister');
 if search == 1
     swarms = {};
-    % Randomize the seed, open a pool of workers where each of them the model
-    % is loaded, the fast restart is enabled and parameters are pushed.
-    Parallel_Injection;
+    % Randomize the seed, then open a pool of workers
+    rng('shuffle'); if isempty(gcp('nocreate')), parpool; end
+
     % Initialization of important matrices
     b_fitness = zeros(iter,1); fitness = inf(1,n_part);
     gbest_vec = zeros(iter,1);
@@ -77,7 +77,8 @@ if search == 1
             try
                 sw = swarm(n,:,:);
                 sw = squeeze(sw(1,1,:));
-                fitness(n) = LQR_Search(Ts,0,model,sw,Ad_aug,Bd_aug,Ad,Bd,Ard,Brd,Ha,nx,nu,nxr,beta_c);
+                fitness(n) = LQR_Search(Ts,0,sw,Ad_aug,Bd_aug, ...
+                    Ad,Bd,Ard,Brd,Ha,beta_c,VDC,w,A_ref,Tsim,T_settling);
             catch
                 fitness(n) = 1e6;
                 disp(['Evaluation for particle no. ' num2str(n) ' was aborted']);
@@ -91,28 +92,7 @@ if search == 1
         end
         PSO_Algorithm;
     end
-    
-    spmd
-        set_param(model,'FastRestart','off');
-        close_system(model,0);
-    end 
     delete(gcp('nocreate'));
-    sw_best = squeeze(swarm(gbest,3,:));
-    [Kx,Kr,Ku] = Final_Update(0,sw_best,Ad_aug,Bd_aug,nx,nu,nxr);
-    load_system(model)
-    ws = get_param(model,'modelworkspace');
-    ws.assignin('Ard',Ard);
-    ws.assignin('Brd',Brd);
-    ws.assignin('A',A);
-    ws.assignin('B',B);
-    ws.assignin('C',C);
-    ws.assignin('Ts',Ts);
-    ws.assignin('Kx', Kx);
-    ws.assignin('Kr', Kr);
-    ws.assignin('Ku', Ku);
-    ws.assignin('beta_c',beta_c);
-    test = sim(model);
-    save_system(model,[],'OverwriteIfChangedOnDisk',true);
 end
 
 Kgain2Ccode({[Kx Ku Kr] Ard, Brd}, ...

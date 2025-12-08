@@ -11,22 +11,24 @@ t = (0:N-1).' * Ts;
 
 % Preallocate states and inputs
 x_k  = zeros(nx,1);
-x_k_1  = zeros(nx,1);
 xu_k = zeros(nu,1);
 xr_k = zeros(nxr,1);
-xr_k_1 = zeros(nxr,1);
-u_k = zeros(nu,1);
 u_prev  = zeros(nu,1);
 
 % Preallocate fitness functions
 e_log  = zeros(N,nu);
 du_log = zeros(N,nu);
 
-tau = t_settling / 4;   % 4τ = 20 ms -> τ = 5 ms
-env = 1 - exp(-t/tau);    % grows from 0 to 1
-v_alpha = A_ref * env .* sin(w*t); v_beta  = A_ref * env .* cos(w*t);
+% Refernce Generator
+t_step = 0.1;
+tau = t_settling / 4;
+env = 1 - exp(-t/tau);
+A_vec = A_ref*ones(N,1);
+A_vec(t >= t_step) = A_ref;
 
-v_ref  = [v_alpha v_beta];
+v_alpha = A_vec .* env .* sin(w*t);
+v_beta  = A_vec .* env .* cos(w*t);
+v_ref   = [v_alpha v_beta];
 
 for k = 1:N
 

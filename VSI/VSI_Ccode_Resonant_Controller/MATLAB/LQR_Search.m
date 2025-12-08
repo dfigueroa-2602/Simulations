@@ -1,10 +1,10 @@
-function fitness = LQR_Search(Ts,R_mode,mdl,sw,A_aug,B_aug,Ad,Bd,Ard,Brd,Ha,nx,nu,nr,beta_c)
-    Qx = repelem(sw(1:nx/2),2);
-    Qu = repelem(sw(nx/2 + 1:nx/2 + nu/2),2);
+function fitness = LQR_Search(Ts,R_mode,sw,A_aug,B_aug,Ad,Bd,Ard,Brd,Ha,beta_c,VDC,w,A_ref,Tsim,T_settling)
+    nx = size(Bd,1); nu = size(Bd,2); nxr = size(Brd,1);
+    Qx = repelem(sw(1:nx/2),2); Qu = repelem(sw(nx/2 + 1:nx/2 + nu/2),2);
     if isscalar(sw(nx/2 + 1:nx/2 + nu/2))
         Qu = Qu';
     end
-    Qr = repelem(sw(nx/2 + nu/2 + 1:nx/2 + nu/2 + nr/2),2);
+    Qr = repelem(sw(nx/2 + nu/2 + 1:nx/2 + nu/2 + nxr/2),2);
     Q = diag([(10.^Qx)' (10.^Qu)' (10.^Qr)']);
     if R_mode == 1
         Ru = repelem(sw(nx/2 + nu/2 + nr/2 + 1:end),2);
@@ -24,14 +24,10 @@ function fitness = LQR_Search(Ts,R_mode,mdl,sw,A_aug,B_aug,Ad,Bd,Ard,Brd,Ha,nx,n
         disp('Error in the LQR')
         fitness = 1e6; return;
     end
-    Kr = K(:,(nx + nu + 1):end);
+
     Kx = K(:,1:nx);
     Ku = K(:,(nx + 1):(nx + nu));
-
-    ws = get_param(mdl,'modelworkspace');
-    ws.assignin('Kx', Kx);
-    ws.assignin('Kr', Kr);
-    ws.assignin('Ku', Ku);
+    Kr = K(:,(nx + nu + 1):end);
 
     Acl = A_aug - B_aug*K;
     spec = max(abs(eig(Acl)));
@@ -42,23 +38,11 @@ function fitness = LQR_Search(Ts,R_mode,mdl,sw,A_aug,B_aug,Ad,Bd,Ard,Brd,Ha,nx,n
     end
 
     try
-        %simOut = sim(mdl);
-        fitness = Sim_VSI(0.3,Ts,VDC,w,60,20e-3,beta_c,Ad,Bd,Ard,Brd,Ha,Kx,Kr,Ku)
+        fitness = Sim_VSI(Tsim,Ts,VDC,w,A_ref,T_settling,beta_c,Ad,Bd,Ard,Brd,Ha,Kx,Kr,Ku);
     catch ME
         fprintf('\nSimulation failed: %s\n', ME.message)
         disp(getReport(ME, 'extended'))
         fitness = 1e6;
         return;
     end
-    % e = simOut.get('error_v');
-    % du = simOut.get('du_v');
-    % du = squeeze(du).';
-    % e = squeeze(e).';
-    % 
-    % N = size(e,1); t  = (0:N-1).' * Ts;
-    % 
-    % % J_control = (1/N) * Σ ( e^T e + β Δu^T Δu )
-    % term_e   = sum(e.^2, 2);          % [N x 1]
-    % term_du  = sum(du.^2, 2);         % [N x 1]
-    % fitness  = (1/N) * sum( term_e + beta_c * term_du);
 end
