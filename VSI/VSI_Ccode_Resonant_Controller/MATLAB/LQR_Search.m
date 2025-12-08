@@ -31,7 +31,7 @@ function fitness = LQR_Search(Ts,R_mode,sw,A_aug,B_aug,Ad,Bd,Ard,Brd,Ha,beta_c,V
 
     Acl = A_aug - B_aug*K;
     spec = max(abs(eig(Acl)));
-    if spec >= 0.999
+    if spec >= 1
         fitness = 1e6;
         disp('One of the particles is too close of the instable area!')
         return;

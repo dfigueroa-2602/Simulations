@@ -29,10 +29,16 @@ Ad_delay = [Ad Bd; zeros(nu,nx) zeros(nu)]; Bd_delay = [zeros(nx,nu); eye(nu)];
 Ar1 = [0 w; -w 0];
 Br1 = [1; 0];
 
-ss_res = ss(Ar1,Br1,eye(2),[]); [Ard1,Brd1,~,~] = ssdata(c2d(ss_res,Ts,'zoh'));
+Ar3 = [0 3*w; -3*w 0];
+Br3 = [1; 0];
 
-Ard = blkdiag(Ard1,Ard1);
-Brd = blkdiag(Brd1,Brd1);
+ss_res1 = ss(Ar1,Br1,eye(2),[]); [Ard1,Brd1,~,~] = ssdata(c2d(ss_res1,Ts,'zoh'));
+ss_res3 = ss(Ar3,Br3,eye(2),[]); [Ard3,Brd3,~,~] = ssdata(c2d(ss_res3,Ts,'zoh'));
+
+Ard1 = blkdiag(Ard1,Ard1); Ard3 = blkdiag(Ard3,Ard3);
+Brd1 = blkdiag(Brd1,Brd1); Brd3 = blkdiag(Brd3,Brd3);
+
+Ard = blkdiag(Ard1,Ard3); Brd = [Brd1;Brd3];
 
 nxr = size(Brd,1); nur = size(Brd,2);
 
@@ -92,6 +98,9 @@ if search == 1
         end
         PSO_Algorithm;
     end
+
+    [Kx, Kr, Ku] = Final_Value(b_swarm,Ad_aug,Bd_aug,nx,nu,nxr,0);
+
     delete(gcp('nocreate'));
 end
 

@@ -61,7 +61,7 @@ DLLEXPORT void plecsOutput(struct SimulationState* aState)
 
     resonantSystem(var_Control_struct.States.e, var_Control_struct.States.rho_k, var_Control_struct.States.rho_k_1);
 
-    double x[10]; double u[2];
+    double x[14]; double u[2];
 
     /* x = [ifalpha ifbeta vcalpha vcbeta vsalpha_k vsbeta_k rho_0 rho_1 rho_2 rho_3]*/
 
@@ -75,6 +75,10 @@ DLLEXPORT void plecsOutput(struct SimulationState* aState)
     x[7] = var_Control_struct.States.rho_k[1];
     x[8] = var_Control_struct.States.rho_k[2];
     x[9] = var_Control_struct.States.rho_k[3];
+    x[10] = var_Control_struct.States.rho_k[4];
+    x[11] = var_Control_struct.States.rho_k[5];
+    x[12] = var_Control_struct.States.rho_k[6];
+    x[13] = var_Control_struct.States.rho_k[7];
 
     /* Compute LQR control */
     lqrControl(x, u);

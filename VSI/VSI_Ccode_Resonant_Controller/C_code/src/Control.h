@@ -41,10 +41,10 @@ extern const float MATH_1_SQRT3;
     abc_struct.c = (-alphabeta_struct.alpha - MATH_SQRT3 * alphabeta_struct.beta) * MATH_1_2;       \
 }
 
-void lqrControl(const double x[10], double u[2]);
+void lqrControl(const double x[14], double u[2]);
 void resonantSystem(const float e[2],
-                    float rho_k[4],
-                    float rho_k_1[4]);
+                    float rho_k[8],
+                    float rho_k_1[8]);
 void variablesUpdate(void);
 
 struct PLL_struct{
@@ -54,8 +54,8 @@ struct PLL_struct{
 
 struct Control_struct{
     struct{
-        float rho_k[4];
-        float rho_k_1[4];
+        float rho_k[8];
+        float rho_k_1[8];
         float e[2];
         float x_k[4];
         float u_k[2];

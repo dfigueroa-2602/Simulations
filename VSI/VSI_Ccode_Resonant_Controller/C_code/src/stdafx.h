@@ -25,9 +25,9 @@ struct Measurements
 	float Vdc;
 };
 
-extern float K_LQR[2][10];
-extern float Ard[4][4];
-extern float Brd[4][2];
+extern float K_LQR[2][14];
+extern float Ard[8][8];
+extern float Brd[8][2];
 
 extern struct Measurements Meas;
 extern struct SimulationState *aState_global;

@@ -36,4 +36,6 @@ else
     b_fitness(i) = gbest_val;
 end
 
+b_swarm = swarm(gbest,3,:);
+
 display(['Iteration: ' num2str(i) '  Fitness: ' num2str(fitness(gbest)) ' Fitness(best): ' num2str(gbest_val)])
