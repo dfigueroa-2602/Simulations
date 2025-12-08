@@ -27,7 +27,7 @@ ss_VSI = ss(A,B,C,D); [Ad,Bd,~,~] = ssdata(c2d(ss_VSI,Ts,'zoh'));
 Ad_delay = [Ad Bd; zeros(nu,nx) zeros(nu)]; Bd_delay = [zeros(nx,nu); eye(nu)];
 
 Ar1 = [0 w; -w 0];
-Br1 = [0; 1];
+Br1 = [1; 0];
 
 ss_res = ss(Ar1,Br1,eye(2),[]); [Ard1,Brd1,~,~] = ssdata(c2d(ss_res,Ts,'zoh'));
 
@@ -50,7 +50,7 @@ model = 'VSI_ResonantController_C_Simulation_Blocks';
 
 search = 1;
 
-beta_c = 1e-7; n_part = 100; iter = 100;
+beta_c = 3e-5; n_part = 100; iter = 100;
 c1 = 2.05; c2 = 2.05;
 Qmax = 4; Rmax = 2; xi_Max = 0.2; xivel_max = 0.01; Qmax_vel = 1; Rmax_vel = 0.1; rang_coef = 0.6;
 
@@ -77,7 +77,7 @@ if search == 1
             try
                 sw = swarm(n,:,:);
                 sw = squeeze(sw(1,1,:));
-                fitness(n) = LQR_Search(Ts,0,0,model,sw,Ad_aug,Bd_aug,nx,nu,nxr,beta_c);
+                fitness(n) = LQR_Search(Ts,0,model,sw,Ad_aug,Bd_aug,Ad,Bd,Ard,Brd,Ha,nx,nu,nxr,beta_c);
             catch
                 fitness(n) = 1e6;
                 disp(['Evaluation for particle no. ' num2str(n) ' was aborted']);
@@ -98,7 +98,7 @@ if search == 1
     end 
     delete(gcp('nocreate'));
     sw_best = squeeze(swarm(gbest,3,:));
-    [Kx,Kr,Ku,F] = Final_Update(0,0,sw_best,Ad_aug,Bd_aug,nx,nu,nxr);
+    [Kx,Kr,Ku] = Final_Update(0,sw_best,Ad_aug,Bd_aug,nx,nu,nxr);
     load_system(model)
     ws = get_param(model,'modelworkspace');
     ws.assignin('Ard',Ard);
