@@ -1,5 +1,5 @@
 clc
-fsw = 20e3; Ts = 1/(2*fsw); Vg = 10e3; Vs = 400; Vdc = 700;
+fsw = 20e3; Ts = 1/(fsw); Vg = 10e3; Vs = 400; Vdc = 700;
 NDT = Vg/Vs; NCT = 5;
 Lfs = 200e-6; Rfs = 100e-3; Cfs = 12e-6;
 Cdc = 5000e-6;
